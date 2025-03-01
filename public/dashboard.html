@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-32x32.png">
+    <title>शाही Rasoii</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('bg.jpg');
+            background-position-y: 70px;
+            background-position-x: -10px;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        #nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+
+        a.active,
+        nav a:hover {
+            color: #ffd700;
+            font-size: large;
+        }
+
+        .logo {
+            height: auto;
+            margin-right: 10px;
+        }
+
+        section#home {
+            margin-top: 7rem;
+            padding: 20px;
+            text-align: center;
+            height: 10rem;
+        }
+
+        .restName {
+            font-size: 40px;
+            color: rgb(168, 134, 92);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        #userName {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 710px) {
+            header {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            #nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+
+            #nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 15px;
+                margin: 0;
+                font-size: 18px;
+                border-bottom: 1px solid #555;
+            }
+
+            .rightNav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 24px;
+                color: white;
+                background-color: transparent;
+                border: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 100px;
+            }
+        }
+
+        .orderbtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 33em;
+            position: absolute;
+            padding: 11px;
+        }
+
+        .orderbtn button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .orderbtn span {
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .orderbtn button :hover,
+        .orderbtn span :hover {
+            font-size: 16px;
+            color: rgb(168, 134, 92);
+        }
+
+        .image-slider-container {
+            height: 150px;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            margin-top: 260px;
+        }
+
+        .image-slider {
+            display: flex;
+            align-items: center;
+            width: calc(200px * 22);
+            position: relative;
+            animation: scroll-x 40s linear infinite;
+            object-fit: cover;
+
+        }
+
+        .image-slider:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-x {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-150px * 11))
+            }
+        }
+
+        .image-slider-container-reverse {
+            height: 150px;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            margin-top: 375px;
+        }
+
+        .image-slider-reverse {
+            display: flex;
+            align-items: center;
+            width: calc(200px * 22);
+            position: relative;
+            animation: scroll-y 40s linear infinite;
+            object-fit: cover;
+
+        }
+
+        .image-slider-reverse:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-y {
+            0% {
+                transform: translateX(calc(-150px * 11));
+            }
+
+            100% {
+                transform: translateX(0)
+            }
+        }
+
+        .slide {
+            width: 250px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            padding: 3px;
+            perspective: 100px;
+        }
+
+        .slide img {
+            width: 100%;
+            transition: transform 1%;
+        }
+
+        .slide img:hover {
+            transform: translateZ(20px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="menu-toggle"><img width="32" height="32" src="https://img.icons8.com/windows/32/menu--v5.png"
+                alt="menu--v5" /></button>
+        <nav id="nav">
+            <a href="#" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="menu.html">Food Menu</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <span id="userName"></span>
+        <img src="favicon-32x32.png" alt="Restaurant Logo" class="logo">
+    </header>
+
+    <section id="home">
+        <i>
+            <h2 style="font-size: 50px;">
+                Welcome to <br><span class="restName">शाही Rasoii</span></h2>
+        </i>
+    </section>
+
+    <div class="image-slider-container">
+        <div class="image-slider" id="slider">
+
+
+            <div class="slide">
+                <img src="./food images/1.jpg" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="./food images/2.jpg" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="./food images/3.jpg" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="./food images/4.jpg" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="./food images/5.jpg" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="./food images/6.jpg" alt="Image 6">
+            </div>
+            <div class="slide">
+                <img src="./food images/7.jpg" alt="Image 7">
+            </div>
+            <div class="slide">
+                <img src="./food images/8.jpg" alt="Image 8">
+            </div>
+            <div class="slide">
+                <img src="./food images/9.jpg" alt="Image 9">
+            </div>
+            <div class="slide">
+                <img src="./food images/10.jpg" alt="Image 10">
+            </div>
+            <div class="slide">
+                <img src="./food images/11.jpg" alt="Image 11">
+            </div>
+
+
+            <div class="slide">
+                <img src="./food images/1.jpg" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="./food images/2.jpg" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="./food images/3.jpg" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="./food images/4.jpg" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="./food images/5.jpg" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="./food images/6.jpg" alt="Image 6">
+            </div>
+            <div class="slide">
+                <img src="./food images/7.jpg" alt="Image 7">
+            </div>
+            <div class="slide">
+                <img src="./food images/8.jpg" alt="Image 8">
+            </div>
+            <div class="slide">
+                <img src="./food images/9.jpg" alt="Image 9">
+            </div>
+            <div class="slide">
+                <img src="./food images/10.jpg" alt="Image 10">
+            </div>
+            <div class="slide">
+                <img src="./food images/11.jpg" alt="Image 11">
+            </div>
+        </div>
+    </div>
+
+    <div class="image-slider-container-reverse">
+        <div class="image-slider-reverse" id="slider-reverse">
+
+
+            <div class="slide">
+                <img src="./food images/1.jpg" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="./food images/2.jpg" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="./food images/3.jpg" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="./food images/4.jpg" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="./food images/5.jpg" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="./food images/6.jpg" alt="Image 6">
+            </div>
+            <div class="slide">
+                <img src="./food images/7.jpg" alt="Image 7">
+            </div>
+            <div class="slide">
+                <img src="./food images/8.jpg" alt="Image 8">
+            </div>
+            <div class="slide">
+                <img src="./food images/9.jpg" alt="Image 9">
+            </div>
+            <div class="slide">
+                <img src="./food images/10.jpg" alt="Image 10">
+            </div>
+            <div class="slide">
+                <img src="./food images/11.jpg" alt="Image 11">
+            </div>
+
+
+            <div class="slide">
+                <img src="./food images/1.jpg" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="./food images/2.jpg" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="./food images/3.jpg" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="./food images/4.jpg" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="./food images/5.jpg" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="./food images/6.jpg" alt="Image 6">
+            </div>
+            <div class="slide">
+                <img src="./food images/7.jpg" alt="Image 7">
+            </div>
+            <div class="slide">
+                <img src="./food images/8.jpg" alt="Image 8">
+            </div>
+            <div class="slide">
+                <img src="./food images/9.jpg" alt="Image 9">
+            </div>
+            <div class="slide">
+                <img src="./food images/10.jpg" alt="Image 10">
+            </div>
+            <div class="slide">
+                <img src="./food images/11.jpg" alt="Image 11">
+            </div>
+        </div>
+    </div>
+
+    <div class="orderbtn">
+        <button><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/meal.png" alt="meal" /></button>
+        <span><b>Continue to Ordering Food</b></span>
+        <button><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/meal.png" alt="meal" /></button>
+    </div>
+    <script>
+        window.onload = () => {
+            const username = JSON.parse(localStorage.getItem('username')); // Retrieve the username
+            const userNameElement = document.getElementById('userName');
+
+            if (username) {
+                userNameElement.textContent = `Welcome, ${username}!`; // Display username
+            } else {
+                userNameElement.textContent = 'Welcome, Guest!';
+            }
+        };
+        function logout() {
+            localStorage.removeItem('username'); // Clear username
+            window.location.href = 'custom_login.html'; // Redirect to login page
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-32x32.png">
+    <title>शाही Rasoii - Menu</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('bg5.jpg');
+            background-size: auto;
+            background-position: 85px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        a.active,
+        nav a:hover {
+            color: #ffd700;
+            font-size: large;
+        }
+
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        section#menu {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .menu-item {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            max-width: 300px;
+        }
+
+        .menu-item img {
+            width: 275px;
+            /* Set a fixed width */
+            height: 200px;
+            /* Set a fixed height */
+            object-fit: cover;
+            /* Ensures the image fills the dimensions without distortion */
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .menu-item button {
+            padding: 10px 20px;
+            background-color: #ffd700;
+            border: none;
+            border-radius: 5px;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item button:hover {
+            background-color: #ffcc33;
+        }
+
+        /* Floating cart button */
+        .cart-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-button:hover {
+            background-color: #555;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .cart-modal h3 {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+
+        .cart-modal ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-modal ul li {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-modal button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-modal button:hover {
+            background-color: #555;
+        }
+
+        /* Modal Overlay */
+        .cart-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#" class="active">Food Menu</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <img src="favicon-32x32.png" alt="Restaurant Logo" class="logo">
+    </header>
+    <section id="menu">
+        <h2 style="font-size: 50px; text-align: center; margin-top: 5px; color: rgba(255, 255, 255, 0.8);">
+            <i>शाही Menu</i>
+        </h2>
+
+        <div class="menu-item">
+            <img src="./food images/shahi paneer biryani.jpg" alt="Dish 1">
+            <h3>शाही Paneer Biryani</h3>
+            <p>Price: ₹350</p>
+            <button onclick="addToCart('शाही Paneer Biryani', 350)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/shahi mushroom biryani.jpg" alt="Dish 2">
+            <h3>शाही Mushroom Biryani</h3>
+            <p>Price: ₹330</p>
+            <button onclick="addToCart('शाही Mushroom Biryani', 330)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/shahi kaju biryani.jpg" alt="Dish 3">
+            <h3>शाही Kaju Biryani</h3>
+            <p>Price: ₹360</p>
+            <button onclick="addToCart('शाही Kaju Biryani', 360)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/veg fried rice.jpg" alt="Dish 4">
+            <h3>शाही Veg Fried Rice</h3>
+            <p>Price: ₹300</p>
+            <button onclick="addToCart('शाही Veg Fried Rice', 300)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/veg schezwan fried rice.jpg" alt="Dish 5">
+            <h3>शाही Schezwan Fried Rice</h3>
+            <p>Price: ₹330</p>
+            <button onclick="addToCart('शाही Schezwan Fried Rice', 330)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/burnt garlic rice.jpg" alt="Dish 6">
+            <h3>शाही Burnt Garlic Rice</h3>
+            <p>Price: ₹330</p>
+            <button onclick="addToCart('शाही Burnt Garlic Rice', 330)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/mutter paneer.jpg" alt="Dish 7">
+            <h3>शाही Mutter Paneer</h3>
+            <p>Price: ₹280</p>
+            <button onclick="addToCart('शाही Mutter Paneer', 280)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/paneer khurchan.jpg" alt="Dish 8">
+            <h3>शाही Paneer Kurchan</h3>
+            <p>Price: ₹280</p>
+            <button onclick="addToCart('शाही Paneer khurchan', 280)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/veg curry.jpg" alt="Dish 9">
+            <h3>शाही Veg Curry</h3>
+            <p>Price: ₹250</p>
+            <button onclick="addToCart('शाही Veg Curry', 250)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/mushroom masala.jpg" alt="Dish 10">
+            <h3>शाही Mushroom Masala</h3>
+            <p>Price: ₹280</p>
+            <button onclick="addToCart('शाही Mushroom Masala', 280)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/mushroom curry.jpg" alt="Dish 11">
+            <h3>शाही Mushroom Curry</h3>
+            <p>Price: ₹250</p>
+            <button onclick="addToCart('शाही Mushroom Curry', 250)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/dal tadka.jpeg" alt="Dish 12">
+            <h3>शाही Dal Tadka</h3>
+            <p>Price: ₹250</p>
+            <button onclick="addToCart('शाही Dal Tadka', 250)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/rosogolla.jpg" alt="Dish 13">
+            <h3>शाही Rosogolla</h3>
+            <p>Price: ₹30</p>
+            <button onclick="addToCart('शाही Rosogolla', 30)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/corn soup.jpg" alt="Dish 14">
+            <h3>शाही Corn Soup</h3>
+            <p>Price: ₹175</p>
+            <button onclick="addToCart('शाही Corn Soup', 175)">Add to Cart</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="./food images/veg manchow.jpeg" alt="Dish 15">
+            <h3>शाही Veg Manchow Soup</h3>
+            <p>Price: ₹200</p>
+            <button onclick="addToCart('शाही Veg Manchow Soup', 200)">Add to Cart</button>
+        </div>
+
+        <!-- Add more menu items here -->
+
+    </section>
+
+    <!-- Floating Cart Button -->
+    <div class="cart-button" onclick="toggleCart()">🛒 Cart</div>
+
+    <!-- Cart Modal -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-modal" id="cartModal">
+        <h3>Your Cart</h3>
+        <ul id="cartItems"></ul>
+        <p id="totalAmount" style="text-align: center; font-weight: bold; margin-top: 15px;">Total: ₹0</p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(itemName, itemPrice) {
+            cart.push({ name: itemName, price: itemPrice });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${itemName} added to cart!`);
+        }
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            const overlay = document.querySelector('.cart-overlay');
+            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+
+            // Update cart items
+            const cartItems = document.getElementById('cartItems');
+            const totalAmount = document.getElementById('totalAmount');
+            cartItems.innerHTML = '';
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - ₹${item.price}`;
+                cartItems.appendChild(li);
+                total += item.price; // Accumulate the total
+            });
+
+            totalAmount.textContent = `Total: ₹${total}`; // Update total display
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert('Proceeding to checkout...');
+                window.location.href = 'checkout.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

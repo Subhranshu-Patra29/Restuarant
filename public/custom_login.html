@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon.png">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #808080;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #1d1d1d;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .left-section {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-section {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .separator {
+            width: 2px;
+            background-color: #ddd;
+            height: 15rem;
+            margin-left: 30px;
+            margin-right: 20px;
+            align-self: stretch;
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #f7f7f7;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            background-color: #3a3a3a;
+            color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .login-form input[type="text"]:focus,
+        .login-form input[type="password"]:focus {
+            border-color: #4285F4;
+            outline: none;
+        }
+
+        .login-form button {
+            width: 80%;
+            padding: 12px;
+            background-color: #4285F4;
+            border: none;
+            border-radius: 20px;
+            color: #f7f7f7;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            margin-left: 25px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #357ae8;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 7px;
+            margin-top: 5px;
+            border-radius: 20px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s, width 0.3s;
+            color: #f7f7f7;
+            font-weight: 500;
+            width: 41px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .social-login-btn img {
+            margin-right: 8px;
+            width: 25px;
+            height: 25px;
+        }
+
+        .social-login-btn.google {
+            background-color: white;
+            color: #757575;
+            border: 1px solid #ddd;
+            box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+        }
+
+        .social-login-btn.google:hover {
+            box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
+            width: 190px;
+        }
+
+        /* Link to Register Page */
+        .register-link {
+            margin-top: 1rem;
+            color: #f7f7f7;
+            text-align: center;
+        }
+
+        .register-link a {
+            color: #4285F4;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Section: Traditional Login -->
+        <div class="left-section">
+            <div class="login-title">Login</div>
+            <form class="login-form" id="loginForm">
+                <input type="text" name="username" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+
+            <div class="register-link">
+                Don't have an account? <a href="custom_register.html">Register here</a>
+            </div>
+        </div>
+
+        <!-- Separator Line -->
+        <div class="separator"></div>
+
+        <!-- Right Section: Social Login -->
+        <div class="right-section">
+            <!-- Google Login -->
+            <form id="GForm" method="GET">
+                <button type="button" class="social-login-btn google" onclick="initiateGoogleSignIn()">
+                    <img width="100" height="100" src="https://img.icons8.com/color/100/google-logo.png"
+                        alt="google-logo" />
+                    Sign in with Google
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const usernameOrEmail = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: usernameOrEmail, password: password }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Store token in localStorage or cookies
+                    localStorage.setItem('token', data.token);
+
+                    localStorage.setItem('username', JSON.stringify(usernameOrEmail));
+                    
+                    alert('Login successful!');
+                    window.location.href = 'http://127.0.0.1:5500/public/dashboard.html'; // Redirect to the dashboard
+
+                } else {
+                    const error = await response.text();
+                    alert('Login failed: ' + error);
+                }
+            } catch (error) {
+                console.error('Error logging in:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+
+        async function initiateGoogleSignIn() {
+            const oauth2Endpoint = "https://accounts.google.com/o/oauth2/v2/auth";
+            const params = {
+                "client_id": "558316324470-4oj6rodb8moohi7bbl3m9dm64fptog8l.apps.googleusercontent.com",
+                "redirect_uri": "http://127.0.0.1:5500/user-profile.html",
+                "response_type": "token",
+                "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+                "include_granted_scopes": "true",
+                "state": "pass-through-value"
+            };
+
+            // Redirect to Google's OAuth2 endpoint
+            const authUrl = `${oauth2Endpoint}?${new URLSearchParams(params).toString()}`;
+            window.location.href = authUrl;
+        }
+    </script>
+</body>
+
+</html>

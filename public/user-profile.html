@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon-32x32.png">
+    <title>User Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profilepic {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .card a {
+            display: block;
+            color: #007bff;
+            margin-top: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .github-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #616161;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            height: 30px;
+            width: 75%;
+            margin-left: 21px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .github-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .github-logo {
+            width: 45px;
+            height: 45px;
+            margin-right: 10px;
+        }
+
+        .github-text {
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .github-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <!-- Profile Picture -->
+        <img class="profilepic" id="profilepic" alt="User Photo">
+
+        <!-- Name -->
+        <h2 id="username">User Name</h2>
+
+        <!-- Email -->
+        <p id="useremail">user@example.com</p>
+
+        <!-- GitHub-specific details -->
+        <!-- <p th:if="${location != null}" th:text="'Location: ' + ${location}">Location: User location</p>
+
+        <div class="github-box" th:if="${profileUrl != null}">
+            <img class="github-logo" width="100" height="100" src="https://img.icons8.com/glyph-neue/100/github.png"
+                alt="github" />
+            <a class="github-text" th:href="${profileUrl}" target="_blank">Visit GitHub</a>
+        </div> -->
+
+    </div>
+
+    <script>
+        let params = {};
+        let regex = /([^&=]+)=([^&]*)/g, m;
+
+        while (m = regex.exec(location.href)) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        }
+
+        if (Object.keys(params).length > 0) {
+            localStorage.setItem('authInfo', JSON.stringify(params))
+        }
+
+        //hide the access token
+        window.history.pushState({}, document.title, "/" + "user-profile.html");
+
+        let info = JSON.parse(localStorage.getItem('authInfo'));
+
+        fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: {
+                "Authorization": `Bearer ${info['access_token']}`
+            }
+        })
+            .then((data) => data.json())
+            .then((info) => {
+                console.log(info);
+                document.getElementById('username').innerHTML = info.name;
+                document.getElementById('useremail').innerHTML = info.email;
+                document.getElementById('profilepic').setAttribute('src', info.picture);
+
+                const socialLoginResponse = fetch('http://localhost:5000/auth/social-login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: info.email,
+                            name: info.name,
+                            social_id: info.sub,
+                            provider: 'google',
+                        }),
+                    });
+            });   
+    </script>
+</body>
+
+</html>

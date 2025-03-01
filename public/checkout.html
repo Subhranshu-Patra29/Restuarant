@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-32x32.png">
+    <title>शाही Rasoii - Checkout</title>
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('checkout.webp');
+            /* Background image */
+            background-size: contain;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 20px 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Container Styles */
+        .checkout-container,
+        #paypal-button-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Left Section: Checkout Form */
+        .checkout-form-container {
+            flex: 2;
+            margin-right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .checkout-form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .checkout-form input,
+        .checkout-form select,
+        .checkout-form button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .checkout-form input::placeholder,
+        .checkout-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .checkout-form select {
+            color: #000;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .checkout-form button {
+            background-color: #ffd700;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            font-size: 18px;
+        }
+
+        .checkout-form button:hover {
+            background-color: #ffcc33;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .address-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .address-group .address-item {
+            flex: 1;
+        }
+
+        /* Right Section: Cart Summary */
+        .cart-summary-container {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 20px;
+        }
+
+        .cart-summary-container h2 {
+            font-size: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+        }
+
+        .total-amount {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ffd700;
+        }
+    </style>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=ATMImFuUJdyX51izkvVqQI0CoT8EzoGpIq0li1aMnxhH6ukUG8MfNAdAtRAY5KEjKu5qrLZdvaw6JyZu&currency=USD"></script>
+</head>
+
+<body>
+    <h1>Checkout</h1>
+    <div class="checkout-container">
+        <!-- Left Section: Checkout Form -->
+        <div class="checkout-form-container">
+            <h2>Delivery Details</h2>
+            <form class="checkout-form" id="checkoutForm">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="building" placeholder="Building Number" required>
+                <input type="text" name="street" placeholder="Street Name" required>
+                <input type="text" name="locality" placeholder="Locality/Area" required>
+                <div class="address-group">
+                    <div class="address-item">
+                        <input type="text" name="city" placeholder="City" required>
+                    </div>
+                    <div class="address-item">
+                        <select name="state" required>
+                            <option value="">Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" name="pincode" placeholder="Pincode" required>
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+
+        <!-- Right Section: Cart Summary -->
+        <div class="cart-summary-container">
+            <h2>Your Cart</h2>
+            <div id="cartItems">
+                <!-- Cart items will be dynamically loaded here -->
+            </div>
+            <div class="total-amount" id="totalAmount">
+                Total: ₹0
+            </div>
+        </div>
+    </div>
+    <div id="paypal-button-container" style="display: none;"></div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const order_amount = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2); // Calculate total amount
+        //console.log(order_amount);
+
+        var name, phone, email, building, street, locality, city, state, pincode;
+
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const totalAmountContainer = document.getElementById('totalAmount');
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+
+            cart.forEach((item) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-details">
+                        <span>${item.name}</span>
+                    </div>
+                    <span class="cart-item-price">₹${item.price}</span>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+                total += item.price;
+            });
+
+            totalAmountContainer.textContent = `Total: ₹${total}`;
+        }
+
+        document.getElementById('checkoutForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const orderDetail = Object.fromEntries(formData.entries());
+
+            // Collect form data
+            name = event.target.name.value;
+            phone = event.target.phone.value;
+            email = event.target.email.value;
+            building = event.target.building.value;
+            street = event.target.street.value;
+            locality = event.target.locality.value;
+            city = event.target.city.value;
+            state = event.target.state.value;
+            pincode = event.target.pincode.value;
+
+            const fullAddress = `${building}, ${street}, ${locality}, ${city}, ${state} - ${pincode}`;
+
+            // Order details
+            const orderDetails = {
+                name,
+                phone,
+                email,
+                order_amount,
+                order_items: cart, // Cart items (array of objects)
+                pincode,
+            };
+            document.getElementById("paypal-button-container").style.display = "block";
+        });
+
+        window.onload = displayCartItems;
+
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    intent: 'CAPTURE',
+                    purchase_units: [{
+                        amount: {
+                            value: order_amount
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert('Payment successful! Thank you ' + details.payer.name.given_name);
+
+                    // Capture order details
+                    const orderDetails = {
+                        name: name,
+                        phone: phone,
+                        email: email,
+                        order_amount: order_amount,
+                        order_items: JSON.parse(localStorage.getItem('cart')),
+                        pincode: pincode,
+                        paypal_order_id: details.id
+                    };
+
+                    // Send order details to backend
+                    saveOrder(orderDetails);
+                });
+            },
+            onError: function (err) {
+                console.error('PayPal Error:', err);
+                alert('Payment failed. Please try again.');
+            }
+        }).render('#paypal-button-container');
+
+        // Save Order to Backend
+        async function saveOrder(orderDetails) {
+            try {
+                const response = await fetch('http://localhost:5000/orders/place-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderDetails),
+                });
+
+                if (response.ok) {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem('cart');
+                    window.location.href = 'index.html'; // Redirect to homepage
+                } else {
+                    alert('Error saving order.');
+                }
+            } catch (error) {
+                console.error('Error saving order:', error);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

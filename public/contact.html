@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-32x32.png">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <title>शाही Rasoii - Contact Us</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('bg3.jpg');
+            background-size: cover;
+            background-position-x: 35px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        a.active,nav a:hover {
+            color: #ffd700; 
+            font-size: large;
+        }
+
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        section#contact {
+            font-size: 42px;
+            margin-top: -45px;
+            margin-left: 310px;
+            color: #dad6d6;
+        }
+
+        .form {
+            height: 35px;
+            width: 50%;
+            background-color: #dad6d6;
+            border-radius: 5px;
+            border: #333 solid;
+            font-size: 25px;
+            padding: 10px;
+        }
+        #message {
+            height: 65px;
+            width: 35%;
+        }
+        .submit {
+            height: 30px;
+            width: 20%;
+            border-radius: 20px;
+            border: #333 solid;
+            background-color: #dad6d6;
+            font-size: large;
+            margin-left: 175px;
+        }
+
+        nav#social-navbar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            height: 100%;
+            background-color:#333;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav#social-navbar a {
+            color: white;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        nav#social-navbar a:hover {
+            color: #ffd700; 
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="menu.html">Food Menu</a>
+            <a href="#" class="active">Contact</a>
+        </nav>
+        <img src="favicon-32x32.png" alt="Restaurant Logo" class="logo">
+    </header>
+
+    <section id="contact">
+        <h2><i>Feedback</i></h2>
+
+        <div id="contact-form">
+            <form action="#" method="post">
+                <label for="name">Name:</label>
+                <input class="form"  type="text" id="name" name="name" placeholder="John" required>
+                <br>
+                <label for="email">Email:</label>
+                <input class="form"  type="email" id="email" name="email" placeholder="john123@gmail.com" required>
+                <br>
+                <label for="message">Message:</label>
+                <textarea class="form"  id="message" name="message" rows="4" placeholder="Comments here" required></textarea>
+                <br>
+                <button class="submit"  type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <nav id="social-navbar">
+                <a href=""><ion-icon name="logo-facebook"></ion-icon></a>
+                <a href="https://instagram.com/bong_s29patra?igshid=YTQwZjQ0NmI0OA==" target="_blank"><ion-icon
+                            name="logo-instagram"></ion-icon></a>
+                <a href=""><ion-icon name="logo-twitter"></ion-icon></a>
+                <a href="https://www.linkedin.com/in/subhranshu-patra-8207a31b7?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                        target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+    </nav>
+</body>
+</html>
